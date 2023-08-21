@@ -1,5 +1,5 @@
 'use strict';
-const moduleName = 'farm_controller.js';
+const moduleName = 'farm.js';
 
 const common = require("../common.js");
 const db = require("../db");
@@ -20,6 +20,7 @@ function _validateData(body) {
     if (body.updatedAt) res.push('updatedAt (should not be informed)');
 
     if (!body.name) res.push('name is required!');
+    if (!body.distance) res.push('distance is required!');
 
     return res;
 
@@ -28,7 +29,7 @@ function _validateData(body) {
 exports.list = function (req, res, next) {
     common.log(moduleName, 'list', 'Got a request to list all items from collection "' + collection + '"...');
 
-    return db.collection(collection).find({isDeleted: {$ne: true}}, {})
+    return db.collection(collection).find({}, {})
         .then(function (result) {
             common.log(moduleName, 'list', '   Returning ' + result.length + ' ' + collection + '...');
             return common.REST.OK(res, result);
@@ -81,7 +82,7 @@ exports.read  = function (req, res, next) {
         return common.REST.BAD_REQUEST(res, 'Field "farmId" is required', moduleName, 'read');
     }
 
-    return db.collection(collection).find({_id: common.convertStringToUUID(farmId), isDeleted: {$ne: true}}, {})
+    return db.collection(collection).find({_id: common.convertStringToUUID(farmId), }, {})
         .then(function (result) {
             if (!result) {
                 return common.REST.NOT_FOUND(res, itemName, moduleName, 'read');
@@ -118,7 +119,7 @@ exports.update  = function (req, res, next) {
     let insertQuery = req.body;
     insertQuery.updatedAt = new Date().toISOString()
 
-    return db.collection(collection).update({_id: common.convertStringToUUID(farmId), isDeleted: {$ne: true}}, insertQuery,  {upsert: false, multi: false, returnDocument: 'after'})
+    return db.collection(collection).update({_id: common.convertStringToUUID(farmId), }, insertQuery,  {upsert: false, multi: false, returnDocument: 'after'})
         .then(function (result){
             if (!result) {
                 return common.REST.INTERNAL_SERVER_ERROR(res, 'Failed to update item' , moduleName, 'update');
@@ -145,7 +146,7 @@ exports.delete = function (req, res, next) {
         return common.REST.BAD_REQUEST(res, 'Field "farmId" is required', moduleName, 'delete');
     }
 
-    return db.collection(collection).delete({_id: common.convertStringToUUID(farmId), isDeleted: {$ne: true}})
+    return db.collection(collection).delete({_id: common.convertStringToUUID(farmId), })
         .then(function (result) {
             if (!result) {
                 return common.REST.INTERNAL_SERVER_ERROR(res, 'Failed to delete item' , moduleName, 'delete');

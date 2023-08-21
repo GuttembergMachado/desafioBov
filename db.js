@@ -320,24 +320,12 @@ function _delete (collection, findQuery, optionQuery){
 
 function _aggregate (collection, aggregateQuery, optionQuery){
 
-    optionQuery = _.merge(optionQuery, {});
-
     common.log(moduleName, 'aggregate', 'Aggregating "' + collection.collectionName + '" using a query of ' + JSON.stringify(aggregateQuery).length + ' bytes...');
-
-    aggregateQuery = helper.preDatabase(aggregateQuery);
 
     return collection.aggregate(aggregateQuery, optionQuery).toArray()
         .then(function (ret){
             common.log(moduleName, 'aggregate', '   Database "' + collection.collectionName + '" ' + getReadableDbReturn(ret) + '.');
-
-            //As a convenience, undo any modifications we did (not required, but helps debugging)
-            aggregateQuery = helper.posDatabase(aggregateQuery);
-
-            //Prepare the returned data
-            ret = helper.posDatabase(ret);
-
             return ret;
-
         })
         .catch(function (ex){
             throw ex;

@@ -1,5 +1,5 @@
 'use strict';
-const moduleName = 'milk_controller.js';
+const moduleName = 'milk.js';
 
 const common = require("../common.js");
 const db = require("../db");
@@ -36,7 +36,7 @@ exports.list = function (req, res, next) {
         return common.REST.BAD_REQUEST(res, 'Field "farmId" is required', moduleName, 'list');
     }
 
-    return db.collection(collection).find({farm_id: common.convertStringToUUID(farmId), isDeleted: {$ne: true}}, {})
+    return db.collection(collection).find({farmId: common.convertStringToUUID(farmId), }, {})
         .then(function (result) {
             common.log(moduleName, 'list', '   Returning ' + result.length + ' ' + collection + '...');
             return common.REST.OK(res, result);
@@ -68,7 +68,7 @@ exports.create = function (req, res, next) {
     let insertQuery = req.body;
     insertQuery._id = common.convertStringToUUID(common.newUUID());
     insertQuery.createdAt = new Date().toISOString();
-    insertQuery.farm_id = common.convertStringToUUID(farmId);
+    insertQuery.farmId = common.convertStringToUUID(farmId);
 
     db.collection(collection).insert(insertQuery, {returnDocument: 'after',upsert: true, multi: false})
         .then(function (result){
@@ -102,8 +102,8 @@ exports.read  = function (req, res, next) {
 
     let findQuery = {
         _id: common.convertStringToUUID(milkId),
-        farm_id: common.convertStringToUUID(farmId),
-        isDeleted: {$ne: true}
+        farmId: common.convertStringToUUID(farmId),
+
     }
     return db.collection(collection).find(findQuery, {})
         .then(function (result) {
@@ -149,8 +149,8 @@ exports.update  = function (req, res, next) {
 
     let findQuery = {
         _id: common.convertStringToUUID(milkId),
-        farm_id: common.convertStringToUUID(farmId),
-        isDeleted: {$ne: true}
+        farmId: common.convertStringToUUID(farmId),
+
     }
 
     return db.collection(collection).update(findQuery, insertQuery,  {upsert: false, multi: false, returnDocument: 'after'})
@@ -187,8 +187,8 @@ exports.delete = function (req, res, next) {
 
     let findQuery = {
         _id: common.convertStringToUUID(milkId),
-        farm_id: common.convertStringToUUID(farmId),
-        isDeleted: {$ne: true}
+        farmId: common.convertStringToUUID(farmId),
+
     }
 
     return db.collection(collection).delete(findQuery)

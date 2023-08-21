@@ -21,6 +21,7 @@ const http = require("http");
 const farms = require('./controllers/farms.js');
 const farmers = require('./controllers/farmers.js')
 const milk = require('./controllers/milk.js')
+const reports = require('./controllers/reports.js')
 
 const serverPort = 3001;
 const dbUri = "mongodb://127.0.0.1:27017/desafioBov"
@@ -102,14 +103,12 @@ function startServer(){
                 .delete(milk.delete);
 
             //Consultas
-            // cadastro de fazendeiro e fazenda;
-            // cadastro da produção de leite diário, em litros;
-            // consulta do volume de leite entregue para cada dia e a média mensal, dado uma fazenda e um mês de parâmetro;
-            // consulta do preço do litro de leite pago ao fazendeiro, dado um código de fazenda e um mês de parâmetro. Apresentar o preço no formato numérico brasileiro e inglês;
-            // consulta do preço do litro de leite pago para cada mês do ano, dado uma fazenda e um ano de parâmetro. Apresentar o preço no formato numérico brasileiro e inglês;
-
-
-
+            app.route('/milkVolumeReport')
+                .get(reports.milkVolumeReport)
+            app.route('/milkPriceReport')
+                .get(reports.milkPriceReport)
+            app.route('/monthlyReport')
+                .get(reports.monthlyReport)
 
             app._router.stack.forEach(function (middleware){
                 if (middleware.route) {
