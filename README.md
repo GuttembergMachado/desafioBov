@@ -1,7 +1,5 @@
 # Desafio para desenvolvedor backend - Gutto
 
-
-
 Please be aware:
     - This code is not created with a performance, security or failure recovery focus;
     - Authentication is omitted;
