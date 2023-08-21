@@ -1,0 +1,1093 @@
+{
+	"info": {
+		"_postman_id": "04d97e21-c124-4539-a070-10438c40ec1e",
+		"name": "DesafioBov",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2145716"
+	},
+	"item": [
+		{
+			"name": "Farms",
+			"item": [
+				{
+					"name": "ListFarms",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.log(\"Requesting a LIST of farms...\");\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.logResponse(pm.response);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/farms",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"farms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateFarm",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.log(\"Requesting to CREATE a 'Farm'...\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.logResponse(pm.response);\r",
+									"\r",
+									"if (pm.response.code === 200){\r",
+									"    let json = pm.response.json();\r",
+									"    let id = json.content._id;\r",
+									"    console.log(\"Created farm id '\" + id + '\".');\r",
+									"    pm.globals.set('FARM_ID', id);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Sítio do Pica Pau Amarelo\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/farms",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"farms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ReadFarm",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.log(\"Requesting to READ farm...\");\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.logResponse(pm.response);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "accesstoken",
+								"value": "{{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/farms/{{FARM_ID}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"farms",
+								"{{FARM_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateFarm",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.log(\"Requesting to READ farm...\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.logResponse(pm.response);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"address\": \"Rua Monteiro Lobato, 100\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/farms/{{FARM_ID}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"farms",
+								"{{FARM_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteFarm",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.log(\"Requesting to DELETE farm...\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.logResponse(pm.response);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"avatar\": \"17a980ae-aea2-42ec-8d6f-2a596231b95c\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3001/farms/{{FARM_ID}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"farms",
+								"{{FARM_ID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Farmer",
+			"item": [
+				{
+					"name": "ListFarmers",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.log(\"Requesting a LIST of farmers...\");\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.logResponse(pm.response);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/farms/{{FARM_ID}}/farmers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"farms",
+								"{{FARM_ID}}",
+								"farmers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateFarmer",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.log(\"Requesting to CREATE a 'Farmer'...\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.logResponse(pm.response);\r",
+									"\r",
+									"if (pm.response.code === 200){\r",
+									"    let json = pm.response.json();\r",
+									"    let id = json.content._id;\r",
+									"    console.log(\"Created farmer id '\" + id + '\".');\r",
+									"    pm.globals.set('FARMER_ID', id);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Visconde de Sabugosa\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/farms/{{FARM_ID}}/farmers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"farms",
+								"{{FARM_ID}}",
+								"farmers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ReadFarmer",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.log(\"Requesting to READ farmer...\");\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.logResponse(pm.response);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "accesstoken",
+								"value": "{{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/farms/{{FARM_ID}}/farmers/{{FARMER_ID}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"farms",
+								"{{FARM_ID}}",
+								"farmers",
+								"{{FARMER_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateFarmer",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.log(\"Requesting to READ farmer...\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.logResponse(pm.response);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"gender\": \"male\",\n    \"color\": \"green\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/farms/{{FARM_ID}}/farmers/{{FARMER_ID}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"farms",
+								"{{FARM_ID}}",
+								"farmers",
+								"{{FARMER_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteFarmer",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.log(\"Requesting to DELETE farmer...\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.logResponse(pm.response);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"avatar\": \"17a980ae-aea2-42ec-8d6f-2a596231b95c\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3001/farms/{{FARM_ID}}/farmers/{{FARMER_ID}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"farms",
+								"{{FARM_ID}}",
+								"farmers",
+								"{{FARMER_ID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Milk",
+			"item": [
+				{
+					"name": "ListMilk",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.log(\"Requesting a LIST of farmers...\");\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.logResponse(pm.response);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/farms/{{FARM_ID}}/milk",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"farms",
+								"{{FARM_ID}}",
+								"milk"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateMilk",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.log(\"Requesting to CREATE a 'Milk'...\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.logResponse(pm.response);\r",
+									"\r",
+									"if (pm.response.code === 200){\r",
+									"    let json = pm.response.json();\r",
+									"    let id = json.content._id;\r",
+									"    console.log(\"Created milk id '\" + id + '\".');\r",
+									"    pm.globals.set('MILK_ID', id);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n    \"day\": 14,\n    \"month\": 2,\n    \"year\": 2023,\n    \"volume\": 1000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/farms/{{FARM_ID}}/milk",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"farms",
+								"{{FARM_ID}}",
+								"milk"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ReadMilk",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.log(\"Requesting to READ farm 'ca65b3d8-fab0-4ac1-a447-d4b2f548b587'...\");\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.logResponse(pm.response);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "accesstoken",
+								"value": "{{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/farms/{{FARM_ID}}/milk/{{MILK_ID}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"farms",
+								"{{FARM_ID}}",
+								"milk",
+								"{{MILK_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateMilk",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.log(\"Requesting to READ milk...\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.logResponse(pm.response);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"day\": 13,\n    \"month\": 2,\n    \"year\": 2023,\n    \"volume\": 1000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/farms/{{FARM_ID}}/milk/{{MILK_ID}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"farms",
+								"{{FARM_ID}}",
+								"milk",
+								"{{MILK_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteMilk",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.log(\"Requesting to DELETE milk\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"utils.logResponse(pm.response);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"avatar\": \"17a980ae-aea2-42ec-8d6f-2a596231b95c\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3001/farms/{{FARM_ID}}/milk/{{MILK_ID}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"farms",
+								"{{FARM_ID}}",
+								"milk",
+								"{{MILK_ID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "ListEndPoints",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.log(\"Requesting endpoint list...\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"utils.logResponse(pm.response);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "milkVolumeReport",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.log(\"Requesting endpoint list...\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"utils.logResponse(pm.response);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/milkVolumeReport?farmId=b1a49c26-bfe8-46d2-9025-076b9efcf8a0&month=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"milkVolumeReport"
+					],
+					"query": [
+						{
+							"key": "farmId",
+							"value": "b1a49c26-bfe8-46d2-9025-076b9efcf8a0"
+						},
+						{
+							"key": "month",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "milkPriceReport",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.log(\"Requesting endpoint list...\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"utils.logResponse(pm.response);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/milkPriceReport?farmId=b1a49c26-bfe8-46d2-9025-076b9efcf8a0&month=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"milkPriceReport"
+					],
+					"query": [
+						{
+							"key": "farmId",
+							"value": "b1a49c26-bfe8-46d2-9025-076b9efcf8a0"
+						},
+						{
+							"key": "month",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"//console.log(\"Collection's PRE-REQUEST SCRIPT...\");",
+					"",
+					"//Define global objetcts",
+					"utils = {",
+					"    logResponse: function(res){",
+					"        //console.log(\"   res: '\" + JSON.stringify(res) + \".\");",
+					"",
+					"        if (res.code === 200){",
+					"            let json = res.json();",
+					"            //console.log(\"   json: '\" + JSON.stringify(json) + \".\");",
+					"            if (json){ ",
+					"                msg =  json.message || JSON.stringify(json.content) || JSON.stringify(json);",
+					"            }else{",
+					"                msg = res.text();    ",
+					"            }",
+					"        }else{",
+					"            try{",
+					"                let json = res.json();",
+					"                console.log(\"   json: '\" + JSON.stringify(json) + \".\");",
+					"                if (json){ ",
+					"                    msg = JSON.stringify(json.content) || JSON.stringify(json);",
+					"                }else{",
+					"                    msg = res.text();    ",
+					"                }",
+					"            }catch(ex){",
+					"                msg = \"Unable to read response data: \" + ex.message;    ",
+					"            }",
+					"",
+					"        }",
+					"",
+					"        console.log(\"   Got a \" + res.code + \" (\" + res.status + \")\" +  ( msg ? \": \" + msg : \"\") + \".\");",
+					"    }",
+					"};",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"//console.log(\"Collection's TEST SCRIPT...\");"
+				]
+			}
+		}
+	]
+}
