@@ -1,0 +1,16 @@
+{
+  "name": "desafioBov",
+  "project": "desafioBov",
+  "description": "desafioBov",
+  "version": "0.1.0",
+  "main": "server.js",
+  "author": "Guttemberg Meirelles Machado <guttemberg@gmail.com> (https://about.me/guttemberg)",
+  "license": "MIT",
+  "homepage": "https://github.com/GuttembergMachado/desafioBov.git",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongodb": "^5.1.0",
+    "uuid": "^9.0.0",
+    "uuid-parse": "^1.1.0"
+  }
+}
